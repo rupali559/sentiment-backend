@@ -5,6 +5,10 @@ from textblob import TextBlob
 app = Flask(__name__)
 CORS(app)
 
+@app.route("/", methods=["GET"])
+def home():
+    return "Sentiment Analysis API is running. Use POST /analyze"
+
 @app.route('/analyze', methods=['POST'])
 def analyze():
     data = request.get_json()
