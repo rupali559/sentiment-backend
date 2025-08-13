@@ -1,25 +1,24 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from transformers import pipeline
+from textblob import TextBlob
 
 app = Flask(__name__)
 CORS(app)
-
-# Load a smaller model to save memory
-model = pipeline("sentiment-analysis", model="distilbert-base-uncased-finetuned-sst-2-english")
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
     data = request.get_json()
     text = data.get('text', '')
-    
-    result = model(text)[0]
-    sentiment = result['label']
-    
-    return jsonify({
-        "sentiment": sentiment,
-        "score": result['score']
-    })
+
+    polarity = TextBlob(text).sentiment.polarity
+    if polarity > 0.1:
+        sentiment = "Positive"
+    elif polarity < -0.1:
+        sentiment = "Negative"
+    else:
+        sentiment = "Neutral"
+
+    return jsonify({"sentiment": sentiment})
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    app.run(host='0.0.0.0', port=5000)
