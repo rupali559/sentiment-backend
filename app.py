@@ -13,8 +13,10 @@ def home():
 def analyze():
     data = request.get_json()
     text = data.get('text', '')
+    print(f"Received text: {text}")  # Debug
 
     polarity = TextBlob(text).sentiment.polarity
+    print(f"Polarity: {polarity}")  # Debug
     if polarity > 0.1:
         sentiment = "Positive"
     elif polarity < -0.1:
@@ -26,3 +28,5 @@ def analyze():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
+
+
