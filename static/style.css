@@ -1,0 +1,7 @@
+body { font-family: Arial; text-align: center; margin: 50px; }
+textarea { width: 80%; height: 100px; padding: 10px; }
+button { padding: 10px 20px; margin-top: 10px; }
+#result { margin-top: 20px; font-size: 24px; font-weight: bold; padding: 10px; }
+.positive { background-color: green; color: white; }
+.negative { background-color: red; color: white; }
+.neutral { background-color: grey; color: white; }
